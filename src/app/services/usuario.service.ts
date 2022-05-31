@@ -15,7 +15,15 @@ export class UsuarioService {
   }
 
   getUsers(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.url}/users`)
+    return this.http.get<Usuario[]>(`${this.url}/users?delay=3`)
+      .pipe(
+        // @ts-ignore
+        map(resp => resp['data'])
+      );
+  }
+
+  getUserById(id: string): Observable<Usuario> {
+    return this.http.get<Usuario[]>(`${this.url}/users/${id}`)
       .pipe(
         // @ts-ignore
         map(resp => resp['data'])
